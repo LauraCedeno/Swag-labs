@@ -1,0 +1,43 @@
+
+
+Feature: Iniciar sesión en https://saucedemo.com/
+
+    Scenario: Inicio de sesión exitoso
+      Given que estoy en la página de inicio de sesión de SauceDemo
+      When ingreso el usuario "locked_out_user" y la contraseña "secret_sauce"
+      Then debería ser redirigido a la pagina de productos
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 04 – Usuario bloqueado
+
+    Scenario: Inicio de sesión fallido - Usuario bloqueado
+      Given que estoy en la página de inicio de sesión de SauceDemo
+      When ingreso un usuario bloqueado como "locked_out_user" y la contraseña "secret_sauce"
+      Then debería ver un mensaje indicando que el usuario está bloqueado
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Inicio de sesión fallido - Credenciales incorrectas
+      Given que estoy en la página de inicio de sesión de SauceDemo
+      When ingreso un usuario incorrecto y/o una contraseña incorrecta
+      Then debería ver un mensaje indicando que las credenciales son incorrectas
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Campos Obligatorios - Usuario Vacío
+      Given que estoy en la página de inicio de sesión de https://saucedemo.com/
+      When dejo el campo de usuario vacío y ingreso la contraseña "secret_sauce"
+      And hago clic en el botón de inicio de sesión
+      Then debería ver un mensaje de error indicando que el usuario es obligatorio
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Campos Obligatorios - Contraseña Vacía
+      Given que estoy en la página de inicio de sesión de https://saucedemo.com/
+      When ingreso el usuario "locked_out_user" y dejo el campo de contraseña vacío
+      And hago clic en el botón de inicio de sesión
+      Then debería ver un mensaje de error indicando que la contraseña es obligatoria
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+
+

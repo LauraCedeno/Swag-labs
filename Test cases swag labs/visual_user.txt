@@ -1,0 +1,280 @@
+
+Feature: Inicio de Sesión en https://saucedemo.com/
+
+     Scenario: Inicio de sesión exitoso con un usuario visual
+      Given que estoy en la página de inicio de sesión
+      When ingreso el usuario "visual_user" y la contraseña "secret_sauce"
+      Then debería ser redirigido a la pagina de productos
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Inicio de Sesión Fallido - Usuario Incorrecto
+      Given que estoy en la página de inicio de sesión de https://saucedemo.com/
+      When ingreso un usuario incorrecto y la contraseña "secret_sauce"
+      And hago clic en el botón de inicio de sesión
+      Then debería ver un mensaje de error indicando usuario incorrecto
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Inicio de Sesión Fallido - Contraseña Incorrecta
+      Given que estoy en la página de inicio de sesión de https://saucedemo.com/
+      When ingreso el usuario "visual_user" y una contraseña incorrecta
+      And hago clic en el botón de inicio de sesión
+      Then debería ver un mensaje de error indicando contraseña incorrecta
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Campos Obligatorios - Usuario Vacío
+      Given que estoy en la página de inicio de sesión de https://saucedemo.com/
+      When dejo el campo de usuario vacío y ingreso la contraseña "secret_sauce"
+      And hago clic en el botón de inicio de sesión
+      Then debería ver un mensaje de error indicando que el usuario es requerido
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Campos Obligatorios - Contraseña Vacía
+      Given que estoy en la página de inicio de sesión de https://saucedemo.com/
+      When ingreso el usuario "visual_user" y dejo el campo de contraseña vacío
+      And hago clic en el botón de inicio de sesión
+      Then debería ver un mensaje de error indicando que la contraseña es requerida
+
+       Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Visualización de productos en https://saucedemo.com/
+
+    Scenario: Visualización de productos disponibles
+      Given que he iniciado sesión con éxito en https://saucedemo.com/
+      When visualizo la lista de productos disponibles
+      Then debería ver al menos un producto en la lista
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Visualización de la imagen de acuerdo al producto
+      Given que he iniciado sesión con éxito en https://saucedemo.com/
+      When visualizo la lista de productos disponibles
+      Then se debe visualizar la imagen de acuerdo al producto
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 18 – Visualización de la imagen del producto “Sauce Labs Backpack”
+
+    Scenario: Visualización del orden de la información en cada producto
+      Given que he iniciado sesión con éxito en https://saucedemo.com/
+      When visualizo cada uno de los productos disponibles
+      Then la información y botones por cada producto deben visualizarse en la misma posición
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 19 – Posición del botón “Add to card” en el último producto del catalogo
+
+Feature: Verificar la posición del carrito en la página principal
+
+    Scenario: El carrito está vacío al iniciar sesión
+      Given que estoy en la página principal de SauceDemo
+      When ingreso con el usuario "visual_user" y la contraseña "secret_sauce"
+      Then debería ver que el carrito está vacío en la esquina superior derecha
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 20 – Posición del botón Carrito de compras en la página principal
+
+    Scenario: Detalles del producto
+      Given que he iniciado sesión y hay al menos un producto disponible
+      When selecciono un producto de la lista
+      Then debería ver los detalles del producto seleccionado
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Ordenar Productos
+
+    Scenario: Ordenar Productos por Precio de Menor a Mayor
+      Given que el usuario ha iniciado sesión y está en la página principal de productos
+      When el usuario selecciona la opción de ordenar por precio de menor a mayor
+      Then los productos deberían estar ordenados por precio de menor a mayor
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Ordenar Productos por Precio de Mayor a Menor
+      Given que el usuario ha iniciado sesión y está en la página principal de productos
+      When el usuario selecciona la opción de ordenar por precio de mayor a menor
+      Then los productos deberían estar ordenados por precio de mayor a menor
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Ordenar Prod uctos por nombre de A a Z.
+      Given que el usuario ha iniciado sesión y está en la página principal de productos
+      When el usuario selecciona la opción de ordenar por nombre de A a Z
+      Then los productos deberían estar ordenados por nombre de A a Z
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Ordenar Productos por nombre de Z a A.
+      Given que el usuario ha iniciado sesión y está en la página principal de productos
+      When el usuario selecciona la opción de ordenar por nombre de Z a A
+      Then los productos deberían estar ordenados por nombre de Z a A
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Agregar Producto al Carrito
+
+    Scenario: Agregar Producto al Carrito desde la Página Principal
+      Given que el usuario ha iniciado sesión y está en la página principal de productos
+      When el usuario hace clic en el botón "Add to Cart" del producto seleccionado
+      Then el producto debería aparecer en el carrito de compras con una cantidad de 1
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Verificar la posición del botón "Checkout"
+
+    Scenario: Verificar la posición del botón "Checkout" después de agregar productos al carrito
+      Given que he iniciado sesión con el usuario "visual_user" y la contraseña "secret_sauce"
+      When agrego productos al carrito de compras
+      Then debería ver la página del carrito de compras
+      And el botón "Checkout" debería estar ubicado en la esquina inferior derecha
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 21 – Posición del botón “Checkout” en la pagina del carrito de compras
+
+Feature: Eliminar Producto del Carrito o Desde la Pagina Principal
+
+    Scenario: Eliminar Producto del Carrito
+      Given que el usuario ha iniciado sesión y tiene al menos un producto en el carrito
+      When el usuario va al carrito de compras
+      And el usuario elimina un producto del carrito
+      Then el producto debería ser eliminado del carrito
+      And el producto debe quedar disponible de nuevo
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Eliminar Producto desde la Pagina Principal
+      Given que el usuario ha iniciado sesión y tiene al menos un producto en el carrito
+      When el usuario esta en la pagina principal
+      And el usuario elimina un producto del desde la pagina principal
+      Then el producto debería ser eliminado del carrito
+      And el producto debe quedar disponible de nuevo
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feachure: Validar la restricción de checkout sin productos en el carrito
+
+    Scenario: No permitir continuar con el checkout sin productos en el carrito
+      Given que el usuario está en la página de inicio de Saucedemo
+      When el usuario inicia sesión con el nombre de usuario "visual_user" y la contraseña "secret_sauce"
+      And el usuario navega a la página de productos
+      And el carrito de compras está vacío
+      Then el usuario no debería poder continuar con el proceso de checkout
+      And se muestra un mensaje indicando que el carrito está vacío
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 14 – Validar la restricción de checkout sin productos en el carrito
+
+
+Feature: Diligenciar información de envío
+
+    Scenario: Proceder a diligenciar información de envio
+      Given que he iniciado sesión en SauceDemo con usuario "visual_user" y contraseña "secret_sauce"
+      And he agregado productos al carrito de compras
+      When el usuario presiona el botón "Checkout"
+      Then debería ser redirigido a la página de información de envío
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Campos Obligatorios - First name vacio
+      Given que estoy en la página de información de envío en SauceDemo
+      When dejo el campo de first name vacío e ingreso en last name "Veloza" y en Zip/Postal code "430003"
+      And hago clic en el botón de continuar
+      Then debería ver un mensaje de error indicando que el campo first name es requerido
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Campos Obligatorios - Last name vacio
+      Given que estoy en la página de información de envío en SauceDemo
+      When dejo el campo de last name vacío e ingreso en first name "Duver" y en Zip/Postal code "430003"
+      And hago clic en el botón de continuar
+      Then debería ver un mensaje de error indicando que el campo last name es requerido
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Campos Obligatorios - Zip/Postal code  vacio
+      Given que estoy en la página de información de envío en SauceDemo
+      When dejo el campo de Zip/Postal code vacío e ingreso en first name "Duver" y last name "Veloza"
+      And hago clic en el botón de continuar
+      Then debería ver un mensaje de error indicando que el campo Zip/Postal code es requerido
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Diligenciar información de envío
+      Given que estoy en la página de información de envío en SauceDemo
+      When completo los campos first name, last name, Zip/Postal code de información de envío
+      And hago clic en el botón de continuar
+      Then debería ser redirigido a la página de información de pago
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Metodo de pago
+
+    Scenario: Validar metodo de pago - Invalido
+      Given que estoy en la sección de metodo de pago en SauceDemo
+      When selecciono un metodo de pago invalido
+      Then debería ver un mensaje de error indicando que el metodo de pago es invalido
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 02 – Validación de la información de pago
+
+    Scenario: Validar metodo de pago - Valido
+      Given que estoy en la sección de metodo de pago en SauceDemo
+      When selecciono un metodo de pago valido
+      And diligencio la respectiva información referente al metodo de pago seleccionado
+      Then debería ser redirigido a la pagina de resumen de la orden
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 02 – Validación de la información de pago
+
+    Scenario: Verificar resumen de la orden
+      Given que estoy en la página de resumen de la orden en SauceDemo
+      When reviso la información de la orden
+      Then debería ver los productos seleccionados,información de envío e información de pago.
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: Finalizar la compra
+      Given que estoy en la página de resumen de la orden en SauceDemo
+      When hago clic en el botón "Finish"
+      Then debería mostrar un mensaje de confirmación de la compra exitosa
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Reestablecer el estado de la aplicación
+
+    Scenario: Resetear estado de la aplicación a la configuración predeterminada
+      Given que el usuario se ha autenticado en la aplicación
+      When el usuario selecciona la opción "reset app state"
+      Then el estado de la aplicación debe restablecerse a la configuración predeterminada
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 03 – Reestablecer el estado de la aplicación
+
+    Scenario: Verificar que los elementos en la aplicación vuelven a su estado inicial
+      Given que el usuario se ha autenticado en la aplicación y ha realizado cambios en el estado
+      When el usuario selecciona la opción "reset app state"
+      Then los elementos en la aplicación deben volver a su estado inicial
+
+      Resultado: Caso de prueba fallido, porque se encontro el bug con id= 03 – Reestablecer el estado de la aplicación
+
+Feature: Acerca de la funcionalidad de la página
+
+    Scenario: navegue a la página About
+      When el usuario hace clic en el enlace About
+      Then, el usuario debería ser redirigido a la página About
+      And la página About debería mostrar información relevante
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+    Scenario: volver a la página principal desde la página About
+      Given que el usuario está en la página About
+      When el usuario hace clic en la opción de retroceder
+      Then el usuario debería ser redirigido a la página principal
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Logout
+
+    Scenario: Logout exitosamente con el usuario visual
+      Given que estoy autenticado con el nombre de usuario "visual_user" y la contraseña "secret_sauce" en la página "https://www.saucedemo.com/"
+      When hago clic en el botón de "Logout"
+      Then debería ser redirigido a la página de inicio de sesión
+
+      Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+
+
+

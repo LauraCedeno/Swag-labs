@@ -1,0 +1,189 @@
+Feature: Pruebas de Rendimiento para la Página de Login en SauceDemo
+
+  Scenario: Rendimiento al iniciar sesión con credenciales válidas
+    Given el usuario ingresa el nombre de usuario "performance_glitch_user" y la contraseña "secret_sauce"
+    Then el usuario debería ser redirigido a la página de productos
+    And la página de productos debería cargarse en menos de 3 segundos
+
+    Resultado: Caso de prueba fallido, porque se encontro el bug con id= 22 – Tiempo de respuesta al iniciar sesión con credenciales válidas
+
+  Scenario: Rendimiento al intentar iniciar sesión con credenciales incorrectas
+    When el usuario ingresa credenciales incorrectas
+    Then el sistema debería mostrar un mensaje de error
+    And la página de error debería cargarse en menos de 2 segundos
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+  Scenario: Rendimiento al intentar iniciar sesión con campos en blanco
+    When el usuario deja los campos de nombre de usuario y contraseña en blanco
+    And hace clic en el botón de inicio de sesión
+    Then el mensaje de error de campos obligatorios deberia cargarse en menos de 2 segundos
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Rendimiento al Ordenar Productos
+
+  Scenario: Ordenar Productos por Precio de Menor a Mayor
+    Given que el usuario ha iniciado sesión y está en la página principal de productos
+    When el usuario selecciona la opción de ordenar por precio de menor a mayor
+    Then los productos deberían estar ordenados por precio de menor a mayor en menos de 3 segundos
+
+    Resultado: Caso de prueba fallido, porque se encontro el bug con id= 23 – Tiempo de respuesta al ordenar los productos por precio o nombre
+
+  Scenario: Ordenar Productos por Precio de Mayor a Menor
+    Given que el usuario ha iniciado sesión y está en la página principal de productos
+    When el usuario selecciona la opción de ordenar por precio de mayor a menor
+    Then los productos deberían estar ordenados por precio de mayor a menor en menos de 3 segundos
+
+    Resultado: Caso de prueba fallido, porque se encontro el bug con id= 23 – Tiempo de respuesta al ordenar los productos por precio o nombre
+
+  Scenario: Ordenar Productos por nombre de A a Z.
+    Given que el usuario ha iniciado sesión y está en la página principal de productos
+    When el usuario selecciona la opción de ordenar por nombre de A a Z
+    Then los productos deberían estar ordenados por nombre de A a Z en menos de 3 segundos
+
+    Resultado: Caso de prueba fallido, porque se encontro el bug con id= 23 – Tiempo de respuesta al ordenar los productos por precio o nombre
+
+  Scenario: Ordenar Productos por nombre de Z a A.
+    Given que el usuario ha iniciado sesión y está en la página principal de productos
+    When el usuario selecciona la opción de ordenar por nombre de Z a A
+    Then los productos deberían estar ordenados por nombre de Z a A en menos de 3 segundos
+
+    Resultado: Caso de prueba fallido, porque se encontro el bug con id= 23 – Tiempo de respuesta al ordenar los productos por precio o nombre
+
+Feachure: Rendimiento al dirigirse al detalle del producto
+
+  Scenario: Tiempo de carga del detalle del producto
+    Given que el usuario ha iniciado sesión en el sitio web
+    And ha ingresado al catálogo de productos
+    When el usuario selecciona un producto específico
+    Then el detalle del producto debería cargarse en menos de 3 segundos
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+  Scenario: Rendimiento al cargar imágenes del producto
+    When el usuario visualiza el detalle del producto
+    Then las imágenes asociadas al producto deberían cargarse de manera eficiente
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+  Scenario: Rendimiento al cargar información del producto
+    When el usuario accede al detalle del producto
+    Then la información detallada del producto debería mostrarse en un tiempo razonable
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+  Scenario: Rendimiento al interactuar con botones en el detalle del producto
+    When el usuario realiza acciones como agregar al carrito o volver atrás desde el detalle del producto
+    Then estas acciones deberían ejecutarse sin demoras significativas
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Pruebas de rendimiento al devolverse a la página principal
+
+  Scenario: Medir el tiempo de carga al devolverse a la página principal desde el detalle del producto
+    Given que estoy en la sección del detalle del producto
+    And he iniciado sesión con el usuario "performance_glitch_user" y la contraseña "secret_sauce"
+    When vuelvo a la página principal
+    Then la página principal debería cargarse en menos de 3 segundos
+
+    Resultado: Caso de prueba fallido, porque se encontro el bug con id= 24 – Tiempo de respuesta al seleccionar la opción "Back to products"
+
+Feature: Rendimiento al Agregar Productos al Carrito
+
+  Scenario: Agregar un Producto al Carrito desde la Página Principal
+    Given que el usuario ha iniciado sesión con "performance_glitch_user" y "secret_sauce"
+    When el usuario agrega un producto al carrito desde la página principal
+    Then el producto se agrega al carrito en menos de 3 segundos
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Rendimiento al Eliminar Producto del Carrito
+
+  Scenario: Eliminar Producto del Carrito
+    Given que el usuario ha iniciado sesión y tiene al menos un producto en el carrito
+    When el usuario va al carrito de compras
+    And el usuario elimina un producto del carrito
+    Then el producto debería ser eliminado del carrito en menos de 3 segundos
+    And el producto debe quedar disponible de nuevo
+
+    Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Pruebas de rendimiento al seleccionar la opción "Continue Shopping"
+
+  Scenario: Medir el tiempo de carga al devolverse desde la pagina del carrito de compras a la página principal
+    Given que estoy en la pagina del carrito de compras
+    And he iniciado sesión con el usuario "performance_glitch_user" y la contraseña "secret_sauce"
+    When el usurio presiona la opción "Continue Shopping"
+    Then debe redirigirse a la pagina principal de los productos
+    And la página principal debería cargarse en menos de 3 segundos
+
+    Resultado: Caso de prueba fallido, porque se encontro el bug con id= 26 – Tiempo de respuesta al seleccionar la opción "Continue Shopping"
+
+Feature: Rendimiento al direccionar a la información de envío en SauceDemo
+
+   Scenario: Rendimiento al cargar la página de información de envío
+     Given que estoy en la sección del carrito de compras
+     When presiono en el botón "checkout"
+     Then deberia ser redirigido a la sección de información de envío
+     And el tiempo de carga de la página debería ser inferior a 5 segundos.
+
+     Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Rendimiento al direccionar al resumen de la orden
+
+   Scenario: Rendimiento al ingresar información de envío
+     Given que estoy en la sección de información de envio
+     When ingreso la información de envío
+     And hago clic en el botón "Continue"
+     Then el tiempo de carga de la página de resumen de la orden debería ser inferior a 5 segundos
+
+     Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feature: Rendimiento al direccionar a la sección de confirmación de la orden
+
+   Scenario: Rendimiento al direccionar a la confirmación de la orden
+     Given que estoy en la sección de resumen de la orden
+     When hago clic en el botón "Finish"
+     Then deberia ser redirigido a la sección de confirmación de la orden
+     And el tiempo de carga de la página de confirmación de la orden debería ser inferior a 5 segundos
+
+     Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+   Scenario: Rendimiento al direccionar a la pagina principal
+     Given que estoy en la sección de confirmación de la orden
+     When hago clic en el botón "Back Home"
+     Then deberia ser redirigido a la pagina principal
+     And el tiempo de carga a la página de inicial debería ser inferior a 5 segundos
+
+     Resultado: Caso de prueba fallido, porque se encontro el bug con id= 25 – Tiempo de respuesta al seleccionar la opción "Back Home"
+
+Feachure: Rendimiento al seleccionar la opción "About" en SauceDemo
+
+   Scenario: Medición del rendimiento al seleccionar la opción "About"
+     Given que estoy en la página de Productos
+     When selecciono la opción "About"
+     Then debo ser redirigida a la sección de "About"
+     And el tiempo de carga de la página debería ser inferior a 5 segundos.
+
+     Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feachure: Rendimiento al seleccionar la opción "Reset App State" en SauceDemo
+
+   Scenario: Medición del rendimiento al seleccionar la opción "Reset App State"
+     Given que estoy en la página de Productos
+     When selecciono la opción "Reset app state"
+     Then el estado de la aplicación debe restablecerse a la configuración predeterminada
+     And el tiempo de reestablecer el estado de la aplicación debería ser inferior a 5 segundos.
+
+     Resultado: Caso de prueba ejecutado correctamente(Aprobado)
+
+Feachure: Rendimiento al seleccionar la opción "Logout" en SauceDemo
+
+   Scenario: Medición del rendimiento al seleccionar la opción "Logout"
+     Given que estoy en la página de Productos
+     When selecciono la opción "Logout"
+     Then debo ser redirigida a la pagina de inicio de sesión
+     And el tiempo de carga de la página de inicio de sesión debería ser inferior a 5 segundos.
+
+     Resultado: Caso de prueba ejecutado correctamente(Aprobado)
